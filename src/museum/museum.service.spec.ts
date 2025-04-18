@@ -4,7 +4,6 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
 import { MuseumService } from './museum.service';
-
 import { faker } from '@faker-js/faker';
 import { MuseumEntity } from './museum.entity/museum.entity';
 
@@ -29,11 +28,11 @@ describe('MuseumService', () => {
     museumsList = [];
     for(let i = 0; i < 5; i++){
         const museum: MuseumEntity = await repository.save({
-        name: faker.company.companyName(), 
+        name: faker.company.name(), 
         description: faker.lorem.sentence(), 
-        address: faker.address.secondaryAddress(), 
-        city: faker.address.city(), 
-        image: faker.image.imageUrl()})
+        address: faker.location.streetAddress(), 
+        city: faker.location.city(), 
+        image: faker.image.url()})
         museumsList.push(museum);
     }
   }
@@ -66,11 +65,11 @@ describe('MuseumService', () => {
   it('create should return a new museum', async () => {
     const museum: MuseumEntity = {
       id: "",
-      name: faker.company.companyName(), 
+      name: faker.company.name(), 
       description: faker.lorem.sentence(), 
-      address: faker.address.secondaryAddress(), 
-      city: faker.address.city(), 
-      image: faker.image.imageUrl(),
+      address: faker.location.streetAddress(), 
+      city: faker.location.city(), 
+      image: faker.image.url(),
       exhibitions: [],
       artworks: []
     }
@@ -78,16 +77,14 @@ describe('MuseumService', () => {
     const newMuseum: MuseumEntity = await service.create(museum);
     expect(newMuseum).not.toBeNull();
 
-    const storedMuseum = await repository.findOne({ where: { id: newMuseum.id } });
-
+    const storedMuseum = await repository.findOne({where: {id: newMuseum.id}})
     expect(storedMuseum).not.toBeNull();
-    
     if (storedMuseum) {
-      expect(storedMuseum.name).toEqual(newMuseum.name);
-      expect(storedMuseum.description).toEqual(newMuseum.description);
-      expect(storedMuseum.address).toEqual(newMuseum.address);
-      expect(storedMuseum.city).toEqual(newMuseum.city);
-      expect(storedMuseum.image).toEqual(newMuseum.image);
+      expect(storedMuseum.name).toEqual(newMuseum.name)
+      expect(storedMuseum.description).toEqual(newMuseum.description)
+      expect(storedMuseum.address).toEqual(newMuseum.address)
+      expect(storedMuseum.city).toEqual(newMuseum.city)
+      expect(storedMuseum.image).toEqual(newMuseum.image)
     }
   });
 
@@ -101,17 +98,18 @@ describe('MuseumService', () => {
   
     const storedMuseum = await repository.findOne({ where: { id: museum.id } })
     expect(storedMuseum).not.toBeNull();
-    if (storedMuseum) {      
-    expect(storedMuseum).not.toBeNull();
-    expect(storedMuseum.name).toEqual(museum.name)
-    expect(storedMuseum.address).toEqual(museum.address)
+    if (storedMuseum) {
+      expect(storedMuseum.name).toEqual(museum.name)
+      expect(storedMuseum.address).toEqual(museum.address)
     }
-   });
- 
+  });
+
   it('update should throw an exception for an invalid museum', async () => {
     let museum: MuseumEntity = museumsList[0];
     museum = {
-      ...museum, name: "New name", address: "New address"
+      ...museum,
+      name: "New name",
+      address: "New address"
     }
     await expect(() => service.update("0", museum)).rejects.toHaveProperty("message", "The museum with the given id was not found")
   });
@@ -120,14 +118,11 @@ describe('MuseumService', () => {
     const museum: MuseumEntity = museumsList[0];
     await service.remove(museum.id);
   
-    const deletedMuseum = await repository.findOne({ where: { id: museum.id } })
-    expect(deletedMuseum).toBeNull();
+    const storedMuseum = await repository.findOne({ where: { id: museum.id } })
+    expect(storedMuseum).toBeNull();
   });
 
   it('delete should throw an exception for an invalid museum', async () => {
-    const museum: MuseumEntity = museumsList[0];
-    await service.remove(museum.id);
     await expect(() => service.remove("0")).rejects.toHaveProperty("message", "The museum with the given id was not found")
   });
- 
 });
