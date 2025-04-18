@@ -1,4 +1,4 @@
-import { ArtworkEntity } from 'src/artwork/artwork.entity.ts/artwork.entity.ts';
+import { ArtworkEntity } from 'src/artwork/artwork.entity/artwork.entity';
 import { MuseumEntity } from 'src/museum/museum.entity/museum.entity';
 import { SponsorEntity } from 'src/sponsor/sponsor.entity.ts/sponsor.entity.ts';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';

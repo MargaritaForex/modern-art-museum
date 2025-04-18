@@ -1,6 +1,6 @@
-import { ArtistEntity } from 'src/artist/artist.entity.ts/artist.entity.ts';
-import { ExhibitionEntity } from 'src/exhibition/exhibition.entity.ts/exhibition.entity.ts';
-import { ImageEntity } from 'src/image/image.entity.ts/image.entity.ts';
+import { ArtistEntity } from 'src/artist/artist.entity/artist.entity';
+import { ExhibitionEntity } from 'src/exhibition/exhibition.entity/exhibition.entity';
+import { ImageEntity } from 'src/image/image.entity/image.entity';
 import { MuseumEntity } from 'src/museum/museum.entity/museum.entity';
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 

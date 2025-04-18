@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { ArtworkEntity } from 'src/artwork/artwork.entity.ts/artwork.entity.ts';
-import { ExhibitionEntity } from 'src/exhibition/exhibition.entity.ts/exhibition.entity.ts';
+
+import { ArtworkEntity } from 'src/artwork/artwork.entity/artwork.entity';
+import { ExhibitionEntity } from 'src/exhibition/exhibition.entity/exhibition.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

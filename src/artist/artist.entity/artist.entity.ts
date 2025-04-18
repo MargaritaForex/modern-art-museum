@@ -1,5 +1,6 @@
-import { ArtworkEntity } from 'src/artwork/artwork.entity.ts/artwork.entity.ts';
-import { MovementEntity } from 'src/movement/movement.entity.ts+/movement.entity.ts+';
+
+import { ArtworkEntity } from 'src/artwork/artwork.entity/artwork.entity';
+import { MovementEntity } from 'src/movement/movement.entity/movement.entity';
 import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
